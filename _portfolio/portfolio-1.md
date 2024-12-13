@@ -1,6 +1,6 @@
 ---
 title: "Life in Croco Patterns - В ритме хендпоука"
-excerpt: "Clip<br/><img src='/images/500x300.png'>"
+excerpt: "Clip<br/><img src='/images/portfolio1.jpg'>"
 collection: portfolio
 ---
 
