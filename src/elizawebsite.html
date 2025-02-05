@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://www.youtube.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <title>Mon Portfolio</title>
+    <script>
+        const translations = {
+            en: {
+                title: "My Portfolio",
+                subtitle: "Cinematographer, Photographer and Clinical Psychologist",
+                cv: "CV",
+                about: "About",
+                video: "Video",
+                photo: "Photo",
+                cvHeading: "My CV",
+                cvText: "Click the button below to view my CV in a new tab:",
+                viewCV: "View my CV",
+                aboutHeading: "About",
+                aboutText: "Welcome to my portfolio! I am a passionate photographer and videographer, dedicated to capturing the essence of moments. With years of experience in both fields, I strive to create works that resonate emotionally and visually with the audience. My style combines creativity and technical precision, ensuring that each project is unique and impactful.",
+                videoHeading: "Video",
+                photoHeading: "Photo",
+                subtitle: "Cinematographer, Photographer and Clinical Psychologist",
+                footer: "© 2023 My Portfolio. All rights reserved."
+            },
+            fr: {
+                title: "Mon Portfolio",
+                subtitle: "Cinéaste, Photographe et Psychologue Clinicienne",
+                cv: "CV",
+                about: "À propos",
+                video: "Vidéo",
+                photo: "Photo",
+                cvHeading: "Mon CV",
+                cvText: "Cliquez sur le bouton ci-dessous pour voir mon CV dans un nouvel onglet :",
+                viewCV: "Voir mon CV",
+                aboutHeading: "À propos",
+                aboutText: "Bienvenue sur mon portfolio ! Je suis une photographe et vidéaste passionnée, dédiée à capturer l'essence des moments. Avec des années d'expérience dans les deux domaines, je m'efforce de créer des œuvres qui résonnent émotionnellement et visuellement avec le public. Mon style allie créativité et précision technique, garantissant que chaque projet est unique et impactant.",
+                videoHeading: "Vidéo",
+                photoHeading: "Photo",
+                subtitle: "Cinéaste, Photographe et Psychologue Clinicienne",
+                footer: "© 2023 Mon Portfolio. Tous droits réservés."
+            },
+            ru: {
+                title: "Моё Портфолио",
+                subtitle: "Кинематографист, Фотограф и Клинический Психолог",
+                cv: "Резюме",
+                about: "Обо мне",
+                video: "Видео",
+                photo: "Фото",
+                cvHeading: "Моё Резюме",
+                cvText: "Нажмите на кнопку ниже, чтобы просмотреть моё резюме в новой вкладке:",
+                viewCV: "Смотреть резюме",
+                aboutHeading: "Обо мне",
+                aboutText: "Добро пожаловать в моё портфолио! Я увлечённый фотограф и видеограф, посвятивший себя запечатлению сути моментов. Имея многолетний опыт в обеих областях, я стремлюсь создавать работы, которые эмоционально и визуально резонируют со зрителем. Мой стиль сочетает креативность и техническую точность, гарантируя уникальность и впечатляющий результат каждого проекта.",
+                videoHeading: "Видео",
+                photoHeading: "Фото",
+                subtitle: "Кинематографист, Фотограф и Клинический Психолог",
+                footer: "© 2023 Моё Портфолио. Все права защищены."
+            }
+        };
+
+        function setLanguage(lang) {
+            document.documentElement.lang = lang;
+            document.querySelector('title').textContent = translations[lang].title;
+            document.querySelector('h1').textContent = translations[lang].title;
+            document.querySelector('.subtitle').textContent = translations[lang].subtitle;
+            document.querySelectorAll('nav ul li a').forEach(link => {
+                if (link.getAttribute('href') === '#cv') link.textContent = translations[lang].cv;
+                if (link.getAttribute('href') === '#about') link.textContent = translations[lang].about;
+                if (link.getAttribute('href') === '#videography') link.textContent = translations[lang].video;
+                if (link.getAttribute('href') === '#photography') link.textContent = translations[lang].photo;
+            });
+            document.querySelector('#cv h2').textContent = translations[lang].cvHeading;
+            document.querySelector('#cv p').textContent = translations[lang].cvText;
+            document.querySelector('#cv a').textContent = translations[lang].viewCV;
+            document.querySelector('#about h2').textContent = translations[lang].aboutHeading;
+            document.querySelector('#about .about-text p').textContent = translations[lang].aboutText;
+            document.querySelector('#videography h2').textContent = translations[lang].videoHeading;
+            document.querySelector('#photography h2').textContent = translations[lang].photoHeading;
+            document.querySelector('footer p').textContent = translations[lang].footer;
+
+            // Update active language button
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.lang === lang);
+            });
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,400;0,700;1,400&display=swap') async;
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto Mono', monospace;
+            line-height: 1.6;
+            color: #fff;
+            background: linear-gradient(135deg, #ff7e5f, #feb47b, #f9d56e, #ffcc99, #ff9a76);
+            background-size: 600% 600%;
+            animation: gradientBG 20s ease infinite;
+            scroll-behavior: smooth; /* Enable smooth scrolling */
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            25% { background-position: 25% 50%; }
+            50% { background-position: 50% 50%; }
+            75% { background-position: 75% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .lang-toggle {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            display: flex;
+            gap: 0.5rem;
+            z-index: 1000;
+        }
+
+        .lang-btn {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            background: rgba(255, 255, 255, 0.2);
+            transition: background-color 0.3s, transform 0.3s;
+            cursor: pointer;
+            border: none;
+            font-family: 'Roboto Mono', monospace;
+        }
+
+        .lang-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.05);
+        }
+
+        .lang-btn.active {
+            background: rgba(255, 255, 255, 0.4);
+        }
+
+        header {
+            text-align: center;
+            padding: 2rem 0;
+            position: relative;
+        }
+
+        .name-box {
+            position: absolute;
+            top: 2rem;
+            left: 2rem;
+            padding: 0.7rem 1.5rem;
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 4px;
+            background: linear-gradient(135deg, #ff4d4d, #ff6666, #ff7e5f, #ff9a76, #ffb399);
+            background-size: 400% 400%;
+            animation: nameBoxGradient 5s ease infinite;
+            transition: transform 0.3s;
+        }
+
+        .subtitle {
+            position: absolute;
+            top: 8rem;
+            left: 2rem;
+            font-size: 1rem;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        @keyframes nameBoxGradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .name-box:hover {
+            transform: scale(1.05);
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-top: 8rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1rem; /* Space between title and buttons */
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            background: rgba(255, 255, 255, 0.2);
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        nav ul li a:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.05);
+        }
+
+        .content-section {
+            padding: 2rem 1rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .content-section h2 {
+            text-align: center;
+            margin-bottom: 1rem;
+            font-size: 2rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .gallery {
+            columns: 3;
+            column-gap: 1rem;
+            padding: 1rem;
+        }
+
+        .gallery img {
+            width: 100%;
+            height: auto;
+            margin-bottom: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
+            display: block;
+        }
+
+        .gallery img:hover {
+            transform: scale(1.02);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+            z-index: 1;
+        }
+
+        @media (max-width: 1200px) {
+            .gallery {
+                columns: 2;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .gallery {
+                columns: 1;
+            }
+        }
+
+        .video-gallery {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .video-gallery iframe {
+            width: 100%;
+            max-width: 560px;
+            height: 315px;
+            border: none;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .video-gallery iframe:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .cv-section {
+            text-align: center;
+        }
+
+        .gradient-button {
+            display: inline-block;
+            padding: 0.7rem 1.5rem;
+            font-size: 1rem;
+            font-weight: bold;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 4px;
+            background: linear-gradient(135deg, #ff7e5f, #feb47b, #f9d56e, #ffcc99, #ff9a76);
+            background-size: 400% 400%;
+            animation: buttonGradient 5s ease infinite;
+            transition: transform 0.3s;
+        }
+
+        @keyframes buttonGradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .gradient-button:hover {
+            transform: scale(1.05);
+        }
+
+        .cv-section a {
+            margin-top: 1rem;
+        }
+
+        .about-text {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: justify;
+        }
+
+        footer {
+            text-align: center;
+            padding: 1rem 0;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body onload="setLanguage('fr')">
+    <div class="lang-toggle">
+        <button class="lang-btn" data-lang="fr" onclick="setLanguage('fr')">FR</button>
+        <button class="lang-btn" data-lang="en" onclick="setLanguage('en')">EN</button>
+        <button class="lang-btn" data-lang="ru" onclick="setLanguage('ru')">RU</button>
+    </div>
+    <header>
+        <div class="name-box">Eliza Dubrovina</div>
+        <div class="subtitle">Cinematographer, Photographer and Clinical Psychologist</div>
+        <h1>Mon Portfolio</h1>
+        <nav>
+            <ul>
+                <li><a href="#cv">CV</a></li>
+                <li><a href="#about">À propos</a></li>
+                <li><a href="#videography">Vidéo</a></li>
+                <li><a href="#photography">Photo</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="cv" class="content-section cv-section">
+        <h2>Mon CV</h2>
+        <p>Cliquez sur le bouton ci-dessous pour voir mon CV dans un nouvel onglet :</p>
+        <a class="gradient-button" href="../assets/elizadubrovinacv3.pdf" target="_blank">Voir mon CV</a>
+    </section>
+
+    <section id="about" class="content-section">
+        <h2>À propos</h2>
+        <div class="about-text">
+            <p>Bienvenue sur mon portfolio ! Je suis une photographe et vidéaste passionnée, dédiée à capturer l'essence des moments. Avec des années d'expérience dans les deux domaines, je m'efforce de créer des œuvres qui résonnent émotionnellement et visuellement avec le public. Mon style allie créativité et précision technique, garantissant que chaque projet est unique et impactant.</p>
+        </div>
+    </section>
+
+    <section id="videography" class="content-section">
+        <h2>Vidéo</h2>
+        <div class="video-gallery">
+            <!-- Replace the YouTube video IDs with your own -->
+            <iframe loading="lazy" src="https://www.youtube.com/embed/EKCvfZ7cYY0?si=HWMS2rvj9QAJWu_k" title="The Greatest Moment (Short Film) | Un rêve inachevé de demain (Court-métrage)" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <iframe loading="lazy" src="https://www.youtube.com/embed/DtOdaCrUC1E?si=Wr-qu7m3us2eVdPZ" title="The Monastic Community and Its Art of Living (Report) | La Communauté Monastique et Son Art de Vivre" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <iframe loading="lazy" src="https://www.youtube.com/embed/8-A2oYdHlvk?si=rlwH-NJOZqDWAvxG" title="Lines Breathing with Odesa | Строки, дышащие Одессой" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <iframe loading="lazy" src="https://www.youtube.com/embed/ZgvdS7f1j_U?si=aj1ZvZVekeXl57MN" title="Life in Croco Patterns | В ритме хендпоука" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <iframe loading="lazy" src="https://www.youtube.com/embed/3HZKHciymmw?si=3Ls_XSs6ozVf-BKI" title="Between Reflections | Между отражениями" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <iframe loading="lazy" src="https://www.youtube.com/embed/POHCJBBr_94?si=bhbE3kCYfzxFrCTy" title="Director's Reshoot | Режиссёрский дубль" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <iframe loading="lazy" src="https://www.youtube.com/embed/YoSdX1p0oGs?si=CeLJUyZvViHBsxUA" title="The Blossom of the Eternal City | Флер вечного города" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <iframe loading="lazy" src="https://www.youtube.com/embed/TAjVOfrFVnc?si=yxk98NiMvusdcjUo" title="Echoes of the Unspoken | Отголоски неизречённого" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <iframe loading="lazy" src="https://www.youtube.com/embed/qQdtgcNrZEw?si=tWI7uf0wW_yAT8p9" title="First-Person POV Murder | Убийство от первого лица" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <iframe loading="lazy" src="https://www.youtube.com/embed/-XsSZWXsP6I?si=gZ_kL3piKuI3upHJ" title="The team of our youth | Команда молодости нашей" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <!-- Add more YouTube videos as needed -->
+        </div>
+    </section>
+
+    <section id="photography" class="content-section">
+        <h2>Photo</h2>
+        <div class="gallery">
+            <img loading="lazy" src="../assets/photos/IMG_4531.JPG" alt="Photo">
+            <img loading="lazy" src="../assets/photos/IMG_4532.JPG" alt="Photo">
+            <img loading="lazy" src="../assets/photos/IMG_4533.JPG" alt="Photo">
+            <img loading="lazy" src="../assets/photos/IMG_4534.JPG" alt="Photo">
+            <img loading="lazy" src="../assets/photos/IMG_4536.JPG" alt="Photo">
+            <img loading="lazy" src="../assets/photos/IMG_4537.JPG" alt="Photo">
+            <img loading="lazy" src="../assets/photos/IMG_4538.JPG" alt="Photo">
+            <img loading="lazy" src="../assets/photos/IMG_4539.JPG" alt="Photo">
+            <img loading="lazy" src="../assets/photos/IMG_4540.JPG" alt="Photo">
+            <img loading="lazy" src="../assets/photos/photo_1_2024-12-14_15-46-42.jpg" alt="Photo">
+            <img loading="lazy" src="../assets/photos/photo_2_2024-12-14_15-46-42.jpg" alt="Photo">
+            <img src="../assets/photos/photo_3_2024-12-14_15-41-40.jpg" alt="Photo">
+            <img src="../assets/photos/photo_3_2024-12-14_15-44-56.jpg" alt="Photo">
+            <img src="../assets/photos/photo_3_2024-12-14_15-46-42.jpg" alt="Photo">
+            <img src="../assets/photos/photo_4_2024-12-14_15-41-40.jpg" alt="Photo">
+            <img src="../assets/photos/photo_4_2024-12-14_15-44-56.jpg" alt="Photo">
+            <img src="../assets/photos/photo_4_2024-12-14_15-46-42.jpg" alt="Photo">
+            <img src="../assets/photos/photo_5_2024-12-14_15-41-40.jpg" alt="Photo">
+            <img src="../assets/photos/photo_5_2024-12-14_15-44-56.jpg" alt="Photo">
+            <img src="../assets/photos/photo_5_2024-12-14_15-46-42.jpg" alt="Photo">
+            <img src="../assets/photos/photo_10_2024-12-14_15-41-40.jpg" alt="Photo">
+            <img src="../assets/photos/photo_10_2024-12-14_15-44-56.jpg" alt="Photo">
+            <img src="../assets/photos/photo_10_2024-12-14_15-46-42.jpg" alt="Photo">
+            <img src="../assets/photos/photo_11_2024-12-14_15-41-40.jpg" alt="Photo">
+            <img src="../assets/photos/photo_11_2024-12-14_15-44-56.jpg" alt="Photo">
+            <img src="../assets/photos/photo_11_2024-12-14_15-46-42.jpg" alt="Photo">
+            <img src="../assets/photos/photo_12_2024-12-14_15-41-40.jpg" alt="Photo">
+            <img src="../assets/photos/photo_12_2024-12-14_15-44-56.jpg" alt="Photo">
+            <img src="../assets/photos/photo_12_2024-12-14_15-46-42.jpg" alt="Photo">
+            <img src="../assets/photos/photo_13_2024-12-14_15-41-40.jpg" alt="Photo">
+            <img src="../assets/photos/photo_13_2024-12-14_15-44-56.jpg" alt="Photo">
+            <img src="../assets/photos/photo_13_2024-12-14_15-46-42.jpg" alt="Photo">
+            <img src="../assets/photos/photo_14_2024-12-14_15-41-40.jpg" alt="Photo">
+            <img src="../assets/photos/photo_14_2024-12-14_15-44-57.jpg" alt="Photo">
+            <img src="../assets/photos/photo_14_2024-12-14_15-46-42.jpg" alt="Photo">
+            <img src="../assets/photos/photo_15_2024-12-14_15-41-40.jpg" alt="Photo">
+            <img src="../assets/photos/photo_15_2024-12-14_15-44-57.jpg" alt="Photo">
+            <img src="../assets/photos/photo_15_2024-12-14_15-46-42.jpg" alt="Photo">
+            <img src="../assets/photos/photo_16_2024-12-14_15-41-40.jpg" alt="Photo">
+            <img src="../assets/photos/photo_16_2024-12-14_15-44-57.jpg" alt="Photo">
+            <img src="../assets/photos/photo_16_2024-12-14_15-46-42.jpg" alt="Photo">
+            <img src="../assets/photos/photo_17_2024-12-14_15-41-40.jpg" alt="Photo">
+            <img src="../assets/photos/photo_17_2024-12-14_15-44-57.jpg" alt="Photo">
+            <img src="../assets/photos/photo_17_2024-12-14_15-46-42.jpg" alt="Photo">
+            <img src="../assets/photos/photo_18_2024-12-14_15-41-40.jpg" alt="Photo">
+            <img src="../assets/photos/photo_18_2024-12-14_15-44-57.jpg" alt="Photo">
+            <img src="../assets/photos/photo_18_2024-12-14_15-46-42.jpg" alt="Photo">
+            <img src="../assets/photos/photo_19_2024-12-14_15-41-40.jpg" alt="Photo">
+            <img src="../assets/photos/photo_19_2024-12-14_15-44-57.jpg" alt="Photo">
+            <img src="../assets/photos/photo_19_2024-12-14_15-46-42.jpg" alt="Photo">
+            <img src="../assets/photos/photo_20_2024-12-14_15-41-40.jpg" alt="Photo">
+            <img src="../assets/photos/photo_20_2024-12-14_15-44-57.jpg" alt="Photo">
+            <img src="../assets/photos/photo_20_2024-12-14_15-46-42.jpg" alt="Photo">
+            <img src="../assets/photos/photo_21_2024-12-14_15-41-40.jpg" alt="Photo">
+            <img src="../assets/photos/photo_21_2024-12-14_15-44-57.jpg" alt="Photo">
+            <img src="../assets/photos/photo_21_2024-12-14_15-46-42.jpg" alt="Photo">
+            <img src="../assets/photos/photo_22_2024-12-14_15-41-40.jpg" alt="Photo">
+            <img src="../assets/photos/photo_22_2024-12-14_15-44-57.jpg" alt="Photo">
+            <img src="../assets/photos/photo_22_2024-12-14_15-46-42.jpg" alt="Photo">
+            <img src="../assets/photos/photo_23_2024-12-14_15-41-40.jpg" alt="Photo">
+            <img src="../assets/photos/photo_23_2024-12-14_15-44-57.jpg" alt="Photo">
+            <img src="../assets/photos/photo_23_2024-12-14_15-46-42.jpg" alt="Photo">
+            <img src="../assets/photos/photo_24_2024-12-14_15-41-40.jpg" alt="Photo">
+            <img src="../assets/photos/photo_24_2024-12-14_15-44-57.jpg" alt="Photo">
+            <img src="../assets/photos/photo_24_2024-12-14_15-46-42.jpg" alt="Photo">
+            <img src="../assets/photos/photo_25_2024-12-14_15-41-40.jpg" alt="Photo">
+            <img src="../assets/photos/photo_25_2024-12-14_15-44-57.jpg" alt="Photo">
+            <img src="../assets/photos/photo_25_2024-12-14_15-46-42.jpg" alt="Photo">
+            <img src="../assets/photos/photo_26_2024-12-14_15-41-40.jpg" alt="Photo">
+            <img src="../assets/photos/photo_26_2024-12-14_15-44-57.jpg" alt="Photo">
+            <img src="../assets/photos/photo_26_2024-12-14_15-46-42.jpg" alt="Photo">
+            <img src="../assets/photos/photo_27_2024-12-14_15-41-40.jpg" alt="Photo">
+            <img src="../assets/photos/photo_27_2024-12-14_15-44-57.jpg" alt="Photo">
+            <img src="../assets/photos/photo_27_2024-12-14_15-46-42.jpg" alt="Photo">
+            <img src="../assets/photos/photo_28_2024-12-14_15-41-40.jpg" alt="Photo">
+            <img src="../assets/photos/photo_28_2024-12-14_15-44-57.jpg" alt="Photo">
+            <img src="../assets/photos/photo_28_2024-12-14_15-46-42.jpg" alt="Photo">
+            <img src="../assets/photos/photo_29_2024-12-14_15-41-40.jpg" alt="Photo">
+            <img src="../assets/photos/photo_29_2024-12-14_15-44-57.jpg" alt="Photo">
+            <img src="../assets/photos/photo_29_2024-12-14_15-46-42.jpg" alt="Photo">
+            <img src="../assets/photos/photo_30_2024-12-14_15-41-40.jpg" alt="Photo">
+            <img src="../assets/photos/photo_30_2024-12-14_15-44-57.jpg" alt="Photo">
+            <img src="../assets/photos/photo_30_2024-12-14_15-46-42.jpg" alt="Photo">
+            <img src="../assets/photos/photo_31_2024-12-14_15-41-40.jpg" alt="Photo">
+            <img src="../assets/photos/photo_31_2024-12-14_15-44-57.jpg" alt="Photo">
+            <img src="../assets/photos/photo_31_2024-12-14_15-46-42.jpg" alt="Photo">
+            <img src="../assets/photos/photo_32_2024-12-14_15-41-40.jpg" alt="Photo">
+            <img src="../assets/photos/photo_32_2024-12-14_15-44-57.jpg" alt="Photo">
+            <img src="../assets/photos/photo_32_2024-12-14_15-46-42.jpg" alt="Photo">
+            <img src="../assets/photos/photo_33_2024-12-14_15-41-40.jpg" alt="Photo">
+            <img src="../assets/photos/photo_33_2024-12-14_15-44-57.jpg" alt="Photo">
+            <img src="../assets/photos/photo_33_2024-12-14_15-46-42.jpg" alt="Photo">
+            <img src="../assets/photos/photo_34_2024-12-14_15-41-40.jpg" alt="Photo">
+            <img src="../assets/photos/photo_34_2024-12-14_15-44-57.jpg" alt="Photo">
+            <img src="../assets/photos/photo_34_2024-12-14_15-46-42.jpg" alt="Photo">
+            <img src="../assets/photos/photo_35_2024-12-14_15-41-40.jpg" alt="Photo">
+            <img src="../assets/photos/photo_35_2024-12-14_15-44-57.jpg" alt="Photo">
+            <img src="../assets/photos/photo_35_2024-12-14_15-46-42.jpg" alt="Photo">
+            <img src="../assets/photos/photo_36_2024-12-14_15-41-40.jpg" alt="Photo">
+            <img src="../assets/photos/photo_36_2024-12-14_15-44-57.jpg" alt="Photo">
+            <img src="../assets/photos/photo_36_2024-12-14_15-46-42.jpg" alt="Photo">
+            <img src="../assets/photos/photo_37_2024-12-14_15-41-40.jpg" alt="Photo">
+            <img src="../assets/photos/photo_37_2024-12-14_15-44-57.jpg" alt="Photo">
+            <img src="../assets/photos/photo_37_2024-12-14_15-46-42.jpg" alt="Photo">
+            <img src="../assets/photos/photo_38_2024-12-14_15-41-40.jpg" alt="Photo">
+            <img src="../assets/photos/photo_38_2024-12-14_15-44-57.jpg" alt="Photo">
+            <img src="../assets/photos/photo_38_2024-12-14_15-46-42.jpg" alt="Photo">
+            <img src="../assets/photos/photo_39_2024-12-14_15-41-40.jpg" alt="Photo">
+            <img src="../assets/photos/photo_39_2024-12-14_15-44-57.jpg" alt="Photo">
+            <img src="../assets/photos/photo_39_2024-12-14_15-46-42.jpg" alt="Photo">
+            <img src="../assets/photos/photo_40_2024-12-14_15-41-40.jpg" alt="Photo">
+            <img src="../assets/photos/photo_40_2024-12-14_15-44-57.jpg" alt="Photo">
+            <img src="../assets/photos/photo_40_2024-12-14_15-46-42.jpg" alt="Photo">
+            <img src="../assets/photos/photo_41_2024-12-14_15-41-40.jpg" alt="Photo">
+            <img src="../assets/photos/photo_41_2024-12-14_15-44-57.jpg" alt="Photo">
+            <img src="../assets/photos/photo_41_2024-12-14_15-46-42.jpg" alt="Photo">
+            <img src="../assets/photos/photo_42_2024-12-14_15-41-40.jpg" alt="Photo">
+            <img src="../assets/photos/photo_42_2024-12-14_15-44-57.jpg" alt="Photo">
+            <img src="../assets/photos/photo_42_2024-12-14_15-46-42.jpg" alt="Photo">
+            <img src="../assets/photos/photo_43_2024-12-14_15-41-40.jpg" alt="Photo">
+            <img src="../assets/photos/photo_43_2024-12-14_15-44-57.jpg" alt="Photo">
+            <img src="../assets/photos/photo_43_2024-12-14_15-46-42.jpg" alt="Photo">
+            <img src="../assets/photos/photo_44_2024-12-14_15-41-40.jpg" alt="Photo">
+            <img src="../assets/photos/photo_44_2024-12-14_15-44-57.jpg" alt="Photo">
+            <img src="../assets/photos/photo_44_2024-12-14_15-46-42.jpg" alt="Photo">
+            <img src="../assets/photos/photo_45_2024-12-14_15-41-40.jpg" alt="Photo">
+            <img src="../assets/photos/photo_45_2024-12-14_15-44-57.jpg" alt="Photo">
+            <img src="../assets/photos/photo_45_2024-12-14_15-46-42.jpg" alt="Photo">
+            <img src="../assets/photos/photo_46_2024-12-14_15-41-40.jpg" alt="Photo">
+            <img src="../assets/photos/photo_46_2024-12-14_15-44-57.jpg" alt="Photo">
+            <img src="../assets/photos/photo_46_2024-12-14_15-46-42.jpg" alt="Photo">
+            <img src="../assets/photos/photo_47_2024-12-14_15-41-40.jpg" alt="Photo">
+            <img src="../assets/photos/photo_47_2024-12-14_15-44-57.jpg" alt="Photo">
+            <img src="../assets/photos/photo_47_2024-12-14_15-46-42.jpg" alt="Photo">
+            <img src="../assets/photos/photo_48_2024-12-14_15-41-40.jpg" alt="Photo">
+            <img src="../assets/photos/photo_48_2024-12-14_15-44-57.jpg" alt="Photo">
+            <img src="../assets/photos/photo_48_2024-12-14_15-46-42.jpg" alt="Photo">
+            <img src="../assets/photos/photo_49_2024-12-14_15-41-40.jpg" alt="Photo">
+            <img src="../assets/photos/photo_49_2024-12-14_15-44-57.jpg" alt="Photo">
+            <img src="../assets/photos/photo_49_2024-12-14_15-46-42.jpg" alt="Photo">
+            <img src="../assets/photos/photo_50_2024-12-14_15-41-40.jpg" alt="Photo">
+            <img src="../assets/photos/photo_50_2024-12-14_15-44-57.jpg" alt="Photo">
+            <img src="../assets/photos/photo_50_2024-12-14_15-46-42.jpg" alt="Photo">
+            <img src="../assets/photos/photo_51_2024-12-14_15-41-40.jpg" alt="Photo">
+            <img src="../assets/photos/photo_51_2024-12-14_15-44-57.jpg" alt="Photo">
+            <img src="../assets/photos/photo_51_2024-12-14_15-46-42.jpg" alt="Photo">
+            <img src="../assets/photos/photo_52_2024-12-14_15-41-40.jpg" alt="Photo">
+            <img src="../assets/photos/photo_52_2024-12-14_15-44-57.jpg" alt="Photo">
+            <img src="../assets/photos/photo_52_2024-12-14_15-46-42.jpg" alt="Photo">
+            <img src="../assets/photos/photo_53_2024-12-14_15-41-40.jpg" alt="Photo">
+            <img src="../assets/photos/photo_53_2024-12-14_15-44-57.jpg" alt="Photo">
+            <img src="../assets/photos/photo_53_2024-12-14_15-46-42.jpg" alt="Photo">
+            <img src="../assets/photos/photo_54_2024-12-14_15-41-40.jpg" alt="Photo">
+            <img src="../assets/photos/photo_54_2024-12-14_15-44-57.jpg" alt="Photo">
+            <img src="../assets/photos/photo_54_2024-12-14_15-46-42.jpg" alt="Photo">
+            <img src="../assets/photos/photo_55_2024-12-14_15-41-40.jpg" alt="Photo">
+            <img src="../assets/photos/photo_55_2024-12-14_15-44-57.jpg" alt="Photo">
+            <img src="../assets/photos/photo_55_2024-12-14_15-46-42.jpg" alt="Photo">
+            <img src="../assets/photos/photo_56_2024-12-14_15-41-40.jpg" alt="Photo">
+            <img src="../assets/photos/photo_56_2024-12-14_15-44-57.jpg" alt="Photo">
+            <img src="../assets/photos/photo_56_2024-12-14_15-46-42.jpg" alt="Photo">
+            <img src="../assets/photos/photo_57_2024-12-14_15-41-40.jpg" alt="Photo">
+            <img src="../assets/photos/photo_57_2024-12-14_15-44-57.jpg" alt="Photo">
+            <img src="../assets/photos/photo_57_2024-12-14_15-46-42.jpg" alt="Photo">
+            <img src="../assets/photos/photo_58_2024-12-14_15-41-40.jpg" alt="Photo">
+            <img src="../assets/photos/photo_58_2024-12-14_15-44-57.jpg" alt="Photo">
+            <img src="../assets/photos/photo_58_2024-12-14_15-46-42.jpg" alt="Photo">
+            <img src="../assets/photos/photo_59_2024-12-14_15-41-40.jpg" alt="Photo">
+            <img src="../assets/photos/photo_59_2024-12-14_15-44-57.jpg" alt="Photo">
+            <img src="../assets/photos/photo_59_2024-12-14_15-46-42.jpg" alt="Photo">
+            <img src="../assets/photos/photo_60_2024-12-14_15-41-40.jpg" alt="Photo">
+            <img src="../assets/photos/photo_60_2024-12-14_15-44-57.jpg" alt="Photo">
+            <img src="../assets/photos/photo_61_2024-12-14_15-41-40.jpg" alt="Photo">
+            <img src="../assets/photos/photo_61_2024-12-14_15-44-57.jpg" alt="Photo">
+            <img src="../assets/photos/photo_62_2024-12-14_15-41-40.jpg" alt="Photo">
+            <img src="../assets/photos/photo_62_2024-12-14_15-44-57.jpg" alt="Photo">
+            <img src="../assets/photos/photo_63_2024-12-14_15-41-40.jpg" alt="Photo">
+            <img src="../assets/photos/photo_63_2024-12-14_15-44-57.jpg" alt="Photo">
+            <img src="../assets/photos/photo_64_2024-12-14_15-41-40.jpg" alt="Photo">
+            <img src="../assets/photos/photo_64_2024-12-14_15-44-57.jpg" alt="Photo">
+            <img src="../assets/photos/photo_65_2024-12-14_15-41-40.jpg" alt="Photo">
+            <img src="../assets/photos/photo_65_2024-12-14_15-44-57.jpg" alt="Photo">
+            <img src="../assets/photos/photo_66_2024-12-14_15-41-40.jpg" alt="Photo">
+            <img src="../assets/photos/photo_66_2024-12-14_15-44-57.jpg" alt="Photo">
+            <img src="../assets/photos/photo_67_2024-12-14_15-41-40.jpg" alt="Photo">
+            <img src="../assets/photos/photo_67_2024-12-14_15-44-57.jpg" alt="Photo">
+            <img src="../assets/photos/photo_68_2024-12-14_15-41-40.jpg" alt="Photo">
+            <img src="../assets/photos/photo_68_2024-12-14_15-44-57.jpg" alt="Photo">
+            <img src="../assets/photos/photo_69_2024-12-14_15-41-40.jpg" alt="Photo">
+            <img src="../assets/photos/photo_100_2024-12-14_15-41-40.jpg" alt="Photo">
+            <img src="../assets/photos/photo_100_2024-12-14_15-44-57.jpg" alt="Photo">
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2023 Mon Portfolio. Tous droits réservés.</p>
+    </footer>
+</body>
+</html>
